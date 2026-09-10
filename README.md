@@ -5,46 +5,73 @@
 ![Python](https://img.shields.io/badge/Python-3.14-blue?logo=python)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green?logo=opencv)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-Hand%20Tracking-orange)
-![Pygame](https://img.shields.io/badge/Pygame--CE-Game%20Development-yellow?logo=pygame)
+![Pygame](https://img.shields.io/badge/Pygame--CE-2.5.8-yellow)
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
+![License](https://img.shields.io/badge/License-Educational-lightgrey)
 
 ---
 
-## 📌 Project Overview
+# 📌 About The Project
 
-**Hand-Controlled Car Racing Game** is a real-time interactive racing game developed using **Python, OpenCV, MediaPipe, and Pygame-CE**.
+**Hand-Controlled Car Racing Game** is a real-time interactive racing game developed using:
 
-The game uses a webcam to detect the player's hand in real time. Hand movement is converted into game controls, allowing the player to control the car without using a traditional keyboard or game controller.
+- 🐍 Python
+- 👁️ OpenCV
+- ✋ MediaPipe
+- 🎮 Pygame-CE
 
-The project demonstrates the integration of **Computer Vision, Hand Tracking, Gesture Recognition, and Game Development** in a single interactive application.
+The game uses a webcam to detect the player's hand and converts hand movements into game controls.
+
+The player can control the racing car without using a traditional game controller.
+
+Hand movement controls:
+
+- Car steering
+- Acceleration
+- Braking
+
+Hand gestures control:
+
+- Pause
+- Resume
+
+The game also includes:
+
+- Road obstacles
+- Collision detection
+- Score system
+- Speed system
+- Scrolling road
+- Live hand-tracking preview
+- Interactive game interface
 
 ---
 
-## 🎮 Features
+# 🎮 Features
 
 - ✋ Real-time hand tracking
-- 📷 Webcam-based interaction
-- 🚗 Hand-controlled car steering
-- ⬅️ Move hand left → Car moves left
-- ➡️ Move hand right → Car moves right
-- ⬆️ Move hand up → Accelerate
-- ⬇️ Move hand down → Brake
-- ✊ Fist gesture → Pause
+- 📷 Webcam-based control
+- 🚗 Hand-controlled car
+- ⬅️ Left-hand movement → Car moves left
+- ➡️ Right-hand movement → Car moves right
+- ⬆️ Hand up → Accelerate
+- ⬇️ Hand down → Brake
+- ✊ Fist → Pause
 - 🖐️ Open hand → Resume
-- 🚧 Random road obstacle generation
+- 🚧 Random obstacles
 - 💥 Collision detection
-- 🏆 Dynamic score system
-- ⚡ Dynamic game speed
-- 🛣️ Scrolling racing road
-- 📺 Live hand-tracking camera preview
-- 🎯 Smooth hand movement control
-- 🖥️ Interactive game interface
+- 🏆 Score system
+- ⚡ Dynamic speed
+- 🛣️ Scrolling road
+- 📺 Live camera preview
+- 🎯 Smooth hand movement
+- 🖥️ Pygame interface
 
 ---
 
-## 🧠 How It Works
+# 🧠 How The Project Works
 
-The project uses the following real-time processing pipeline:
+The project uses the following processing pipeline:
 
 ```text
                     ┌──────────────┐
@@ -76,7 +103,7 @@ The project uses the following real-time processing pipeline:
               │                         │
               ▼                         ▼
        ┌──────────────┐          ┌──────────────┐
-       │   Steering   │          │ Speed Control│
+       │ Car Steering │          │ Speed Control│
        └──────┬───────┘          └──────┬───────┘
               │                         │
               └────────────┬────────────┘
