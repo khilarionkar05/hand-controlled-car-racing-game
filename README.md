@@ -5,164 +5,104 @@
 ![Python](https://img.shields.io/badge/Python-3.14-blue?logo=python)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green?logo=opencv)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-Hand%20Tracking-orange)
-![Pygame](https://img.shields.io/badge/Pygame--CE-2.5.8-yellow)
+![Pygame-CE](https://img.shields.io/badge/Pygame--CE-Game%20Development-yellow)
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
-![License](https://img.shields.io/badge/License-Educational-lightgrey)
+![License](https://img.shields.io/badge/License-MIT-blue)
 
----
+## 📌 About The Project
 
-# 📌 About The Project
+Hand-Controlled Car Racing Game is a real-time interactive game built with Python, OpenCV, MediaPipe, and Pygame-CE. The webcam detects the player's hand, MediaPipe extracts hand landmarks, and the game converts hand position and finger count into steering, speed, pause, and resume controls.
 
-**Hand-Controlled Car Racing Game** is a real-time interactive racing game developed using:
+The game includes road obstacles, collision detection, a score system, adjustable speed, a scrolling road, live hand-tracking preview, movement smoothing, and an interactive game interface.
 
-- 🐍 Python
-- 👁️ OpenCV
-- ✋ MediaPipe
-- 🎮 Pygame-CE
+## 🎮 Features
 
-The game uses a webcam to detect the player's hand and converts hand movements into game controls.
+- Real-time webcam hand tracking
+- Left and right steering from horizontal hand position
+- Acceleration and braking from vertical hand position
+- Fist pause and open-hand resume gestures
+- Smooth steering and hand movement
+- Three-lane obstacle placement
+- Scrolling road and moving obstacles
+- Collision detection and game-over state
+- Score and speed display
+- Live camera preview with landmarks
+- Keyboard restart and quit controls
 
-The player can control the racing car without using a traditional game controller.
+## 🧠 How The Project Works
 
-Hand movement controls:
+OpenCV captures and mirrors a webcam frame, then converts it to RGB. MediaPipe processes the frame and returns hand landmarks. The averaged palm position is smoothed before its horizontal coordinate controls the car and its vertical coordinate controls speed. Pygame updates and renders the game each frame.
 
-- Car steering
-- Acceleration
-- Braking
-
-Hand gestures control:
-
-- Pause
-- Resume
-
-The game also includes:
-
-- Road obstacles
-- Collision detection
-- Score system
-- Speed system
-- Scrolling road
-- Live hand-tracking preview
-- Interactive game interface
-
----
-
-# 🎮 Features
-
-- ✋ Real-time hand tracking
-- 📷 Webcam-based control
-- 🚗 Hand-controlled car
-- ⬅️ Left-hand movement → Car moves left
-- ➡️ Right-hand movement → Car moves right
-- ⬆️ Hand up → Accelerate
-- ⬇️ Hand down → Brake
-- ✊ Fist → Pause
-- 🖐️ Open hand → Resume
-- 🚧 Random obstacles
-- 💥 Collision detection
-- 🏆 Score system
-- ⚡ Dynamic speed
-- 🛣️ Scrolling road
-- 📺 Live camera preview
-- 🎯 Smooth hand movement
-- 🖥️ Pygame interface
-
----
-
-# 🧠 How The Project Works
-
-The project uses the following processing pipeline:
+## 🏗️ Processing Pipeline / Architecture Diagram
 
 ```text
-                    ┌──────────────┐
-                    │    Webcam    │
-                    └──────┬───────┘
-                           │
-                           ▼
-                  ┌─────────────────┐
-                  │ OpenCV Capture  │
-                  └────────┬────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │ MediaPipe Hand      │
-                │ Landmarker          │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                  ┌─────────────────┐
-                  │ Hand Landmarks  │
-                  └────────┬────────┘
-                           │
-              ┌────────────┴────────────┐
-              │                         │
-              ▼                         ▼
-       ┌──────────────┐          ┌──────────────┐
-       │ X Position   │          │ Y Position   │
-       └──────┬───────┘          └──────┬───────┘
-              │                         │
-              ▼                         ▼
-       ┌──────────────┐          ┌──────────────┐
-       │ Car Steering │          │ Speed Control│
-       └──────┬───────┘          └──────┬───────┘
-              │                         │
-              └────────────┬────────────┘
-                           ▼
-                    ┌─────────────┐
-                    │   Pygame    │
-                    │    Game     │
-                    └──────┬──────┘
-                           │
-                ┌──────────┴──────────┐
-                │                     │
-                ▼                     ▼
-          ┌───────────┐        ┌──────────────┐
-          │ Obstacles │        │  Collision   │
-          └─────┬─────┘        └──────┬───────┘
-                │                     │
-                └──────────┬──────────┘
-                           ▼
-                       ┌───────┐
-                       │ Score │
-                       └───────┘
-✋ Hand Controls
-Hand Movement / Gesture	Game Action
-Move hand left	🚗 Move car left
-Move hand right	🚗 Move car right
-Move hand up	⚡ Accelerate
-Move hand down	🛑 Brake
-✊ Fist	⏸️ Pause
-🖐️ Open hand	▶️ Resume
-⌨️ Keyboard Controls
-Key	Action
-R	Restart after game over
-ESC	Quit the game
+Webcam
+   ↓
+OpenCV Capture and Frame Flip
+   ↓
+MediaPipe Hand Landmarker
+   ↓
+Hand Landmarks and Finger Count
+   ↓
+Palm X/Y Position with Smoothing
+   ├── X Position → Steering
+   ├── Y Position → Speed
+   └── Finger Count → Pause / Resume
+             ↓
+       Pygame Game Loop
+             ↓
+Road Scrolling + Obstacles + Collision Detection
+             ↓
+        Score and Game UI
+```
 
-The main gameplay is controlled using hand movement.
+Detailed workflow:
 
-Keyboard controls are only used for restarting and exiting the game.
+```text
+Capture frame → Detect hand → Calculate palm center → Smooth coordinates
+       → Update car and speed → Move road and obstacles → Test collision
+       → Update score → Draw game and preview → Display frame
+```
 
-🛠️ Technologies Used
-Programming Language
-Python
-Computer Vision
-OpenCV
-MediaPipe
-Game Development
-Pygame-CE
-Concepts Used
-Computer Vision
-Hand Tracking
-Hand Landmark Detection
-Gesture Recognition
-Image Processing
-Real-Time Processing
-Game Loop
-Collision Detection
-Object Movement
-Smooth Control
-Interactive UI
-📁 Project Structure
+## ✋ Hand Controls
+
+| Hand movement or gesture | Game action |
+| --- | --- |
+| Hand left | Move the car left |
+| Hand center horizontally | Keep the car near the corresponding road position |
+| Hand right | Move the car right |
+| Hand up | Accelerate |
+| Hand center vertically | Gradually return toward normal speed |
+| Hand down | Brake |
+| Fist | Pause |
+| Open hand | Resume |
+
+Horizontal position is mapped to the playable road area. Vertical thresholds control acceleration and braking. Smoothing prevents sudden car movement.
+
+## ⌨️ Keyboard Controls
+
+| Key | Action |
+| --- | --- |
+| `R` | Restart the game, including after game over |
+| `ESC` | Quit the game |
+
+## 🛠️ Technologies Used
+
+| Area | Technology |
+| --- | --- |
+| Programming language | Python |
+| Computer vision | OpenCV |
+| Hand tracking | MediaPipe Hand Landmarker |
+| Game development | Pygame-CE |
+| Supported platform | Windows 10 and Windows 11 |
+
+## 🧩 Concepts Used
+
+Computer vision, hand tracking, hand landmark detection, gesture recognition, image processing, real-time processing, game loops, collision detection, object movement, smooth control, and interactive UI.
+
+## 📁 Project Structure
+
+```text
 hand-controlled-car-racing-game/
 │
 ├── assets/
@@ -174,701 +114,276 @@ hand-controlled-car-racing-game/
 ├── hand_landmarker.task
 ├── main.py
 ├── README.md
+├── LICENSE
 └── .gitignore
-📄 Project Files
-main.py
+```
 
-The main game program.
+The existing obstacle filename is intentionally kept as `obstacal.png`.
 
-It controls:
+## 📄 Project Files Explanation
 
-Pygame initialization
-Game window
-Game loop
-Car movement
-Steering
-Speed control
-Road scrolling
-Obstacle generation
-Collision detection
-Score
-Game UI
-Camera preview
-Pause screen
-Game-over screen
-hand_detection.py
+### `main.py`
 
-The hand-control module.
+Contains Pygame initialization, the game loop, car movement, steering, speed control, road scrolling, obstacle generation, collision detection, score updates, UI panels, camera preview, pause screen, and game-over screen.
 
-It handles:
+### `hand_detection.py`
 
-Webcam capture
-OpenCV image processing
-MediaPipe hand detection
-Hand landmarks
-Palm position
-Finger counting
-Gesture recognition
-Movement smoothing
-Hand landmark visualization
-hand_landmarker.task
+Captures webcam frames with OpenCV, runs MediaPipe hand detection, reads landmarks and palm position, counts fingers, recognizes pause/resume gestures, smooths movement coordinates, and draws landmark visualization.
 
-This is the pre-trained MediaPipe Hand Landmarker model.
+### `hand_landmarker.task`
 
-It is required by the hand detection program.
+The MediaPipe Hand Landmarker model required by `hand_detection.py`. It must remain in the project root beside `main.py` and `hand_detection.py`, not inside `assets/`.
 
-The program loads this model using:
+### `assets/`
 
-model_asset_path="hand_landmarker.task"
-assets/
+- `car.png`: player car image
+- `road.png`: racing road image
+- `obstacal.png`: road obstacle image
 
-Contains the game graphics.
+## 💻 System Requirements
 
-car.png
+- Windows 10 or Windows 11
+- Python 3.14.x
+- A working webcam
+- Keyboard and display
+- Internet access for package/model download when needed
 
-Player car image.
+## 📦 Required Python Libraries
 
-road.png
+- `pygame-ce`
+- `mediapipe`
+- `opencv-contrib-python`
 
-Racing road image.
+### Important Pygame Note
 
-obstacal.png
+The project installs `pygame-ce`, but the Python import remains:
 
-Road obstacle image.
-
-Note: obstacal.png intentionally uses the existing project filename.
-
-💻 System Requirements
-Operating System
-
-The project is designed for:
-
-Windows 10 / Windows 11
-Python
-
-Recommended:
-
-Python 3.14.x
-Hardware
-
-A computer with:
-
-Webcam
-Keyboard
-Display
-Internet connection for initial installation
-
-A reasonably capable computer is recommended for smooth real-time hand tracking.
-
-📦 Required Python Libraries
-
-The project requires:
-
-pygame-ce
-mediapipe
-opencv-contrib-python
-⚙️ Complete Installation Guide
-
-Follow the steps below if you want to run this project on your own computer.
-
-1️⃣ Install Python
-
-Download and install Python from:
-
-https://www.python.org/downloads/
-
-After installation, check the Python version:
-
-python --version
-
-Example:
-
-Python 3.14.6
-
-Also check pip:
-
-python -m pip --version
-2️⃣ Download The Project
-
-There are two ways to get the project.
-
-Method 1 — Clone Using Git
-
-Install Git if it is not already installed:
-
-https://git-scm.com/downloads
-
-Then open Command Prompt or PowerShell.
-
-Run:
-
-git clone https://github.com/YOUR-USERNAME/hand-controlled-car-racing-game.git
-
-Replace:
-
-YOUR-USERNAME
-
-with the GitHub username that owns this repository.
-
-Then enter the project folder:
-
-cd hand-controlled-car-racing-game
-3️⃣ Download ZIP Instead
-
-If you don't have Git, you can download the repository as a ZIP file.
-
-On GitHub:
-
-Repository
-   ↓
-Code
-   ↓
-Download ZIP
-
-Extract the ZIP file.
-
-Then open the extracted project folder.
-
-Example:
-
-C:\Users\YourName\Desktop\hand-controlled-car-racing-game
-4️⃣ Open Terminal In The Project Folder
-
-Open PowerShell or Command Prompt inside the project folder.
-
-You should be inside:
-
-hand-controlled-car-racing-game
-
-Check the files:
-
-dir
-
-You should see:
-
-assets
-hand_detection.py
-hand_landmarker.task
-main.py
-README.md
-5️⃣ Install Pygame-CE
-
-Run:
-
-python -m pip install pygame-ce
-6️⃣ Install MediaPipe
-
-Run:
-
-python -m pip install mediapipe
-7️⃣ Install OpenCV
-
-Run:
-
-python -m pip install opencv-contrib-python
-8️⃣ Verify The Installation
-
-Run:
-
-python -c "import pygame; print('Pygame:', pygame.version.ver)"
-
-Then:
-
-python -c "import mediapipe as mp; print('MediaPipe:', mp.__version__)"
-
-Then:
-
-python -c "import cv2; print('OpenCV:', cv2.__version__)"
-
-You can also check everything together:
-
-python -c "import pygame, cv2, mediapipe; print('All required libraries are installed successfully!')"
-🤖 MediaPipe Model Setup
-
-The project requires:
-
-hand_landmarker.task
-
-Download the MediaPipe Hand Landmarker model from the official MediaPipe model storage:
-
-https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task
-
-Place the downloaded file directly inside the project root folder.
-
-The final structure must be:
-
-hand-controlled-car-racing-game/
-│
-├── assets/
-│   ├── car.png
-│   ├── obstacal.png
-│   └── road.png
-│
-├── hand_detection.py
-├── hand_landmarker.task
-├── main.py
-└── README.md
-📷 Webcam Setup
-
-The game uses the computer's default webcam.
-
-Before running the game:
-
-Connect your webcam.
-Make sure Windows can access it.
-Close other applications that are currently using the webcam.
-Make sure the camera is positioned so your hand is clearly visible.
-
-The project uses:
-
-cv2.VideoCapture(0)
-
-This normally selects the default webcam.
-
-▶️ Run The Game
-
-After completing the installation, run:
-
-python main.py
-
-The game window should open.
-
-The webcam will start detecting your hand.
-
-Place your hand in front of the webcam.
-
-🎮 How To Play
-Step 1
-
-Start the game:
-
-python main.py
-Step 2
-
-Show your hand to the webcam.
-
-Step 3
-
-Move your hand horizontally.
-
-LEFT  →  Car Left
-
-RIGHT →  Car Right
-Step 4
-
-Move your hand vertically.
-
-UP   → Accelerate
-
-DOWN → Brake
-Step 5
-
-Use gestures.
-
-✊ Fist
-   ↓
-Pause
-
-
-🖐️ Open Hand
-   ↓
-Resume
-Step 6
-
-Avoid the obstacles and continue driving.
-
-Step 7
-
-Try to achieve the highest score.
-
-🧠 Hand Tracking System
-
-MediaPipe detects the hand and provides hand landmarks.
-
-The project uses palm-related landmarks to calculate the approximate hand position.
-
-The calculated position is then converted into game controls.
-
-Webcam
-   ↓
-OpenCV
-   ↓
-MediaPipe
-   ↓
-Hand Landmarks
-   ↓
-Palm Position
-   ↓
-Game Controls
-🚗 Steering System
-
-The horizontal hand position controls the car.
-
-Hand Left
-    ↓
-Car Left
-
-
-Hand Center
-    ↓
-Car Center
-
-
-Hand Right
-    ↓
-Car Right
-
-The movement is smoothed so that the car does not move suddenly.
-
-⚡ Speed System
-
-The vertical hand position controls the speed.
-
-Hand Up
-   ↓
-Accelerate
-
-
-Hand Center
-   ↓
-Normal Speed
-
-
-Hand Down
-   ↓
-Brake
-
-The speed is limited between the configured minimum and maximum values.
-
-✊ Gesture System
-
-The project counts the detected fingers.
-
-Fist
-Fist
- ↓
-Very few fingers detected
- ↓
-Pause
-Open Hand
-Open Hand
- ↓
-Multiple fingers detected
- ↓
-Resume
-
-A cooldown is used so that one gesture does not repeatedly trigger an action every frame.
-
-🚧 Obstacle System
-
-Obstacles are randomly generated on the road.
-
-The game continuously:
-
-Generate Obstacle
-       ↓
-Place Obstacle
-       ↓
-Move Obstacle
-       ↓
-Check Collision
-       ↓
-Remove Old Obstacle
-
-Obstacles can appear across the available road lanes.
-
-💥 Collision Detection
-
-The game uses rectangular collision detection.
-
-The player car has a collision area.
-
-Each obstacle has a collision area.
-
-The game checks whether these areas overlap.
-
-Car
- +
-Obstacle
- ↓
-Collision
- ↓
-Game Over
-🏆 Score System
-
-The score increases while the player is driving.
-
-The score is displayed in the game interface.
-
-The current speed is also displayed.
-
-The objective is to survive as long as possible and achieve a high score.
-
-🖥️ Game Interface
-
-The game interface contains:
-
-Score
-Speed
-Car
-Racing road
-Obstacles
-Hand-tracking preview
-Hand-control instructions
-Pause screen
-Game-over screen
-🔄 Complete Project Workflow
-             START
-               │
-               ▼
-        Start Python Program
-               │
-               ▼
-          Open Webcam
-               │
-               ▼
-       Capture Camera Frame
-               │
-               ▼
-       Detect Hand With
-          MediaPipe
-               │
-               ▼
-        Get Hand Landmarks
-               │
-        ┌──────┴──────┐
-        │             │
-        ▼             ▼
-   X Position     Y Position
-        │             │
-        ▼             ▼
-    Steering      Speed Control
-        │             │
-        └──────┬──────┘
-               │
-               ▼
-          Gesture Check
-               │
-               ▼
-        Update Pygame Game
-               │
-               ▼
-       Generate Obstacles
-               │
-               ▼
-       Check Collision
-               │
-          ┌────┴────┐
-          │         │
-          ▼         ▼
-       No Hit      Hit
-          │         │
-          ▼         ▼
-       Continue   Game Over
-          │
-          ▼
-        Increase Score
-          │
-          ▼
-         Repeat
-🧪 Testing
-
-After installation, test each component separately if necessary.
-
-Test Python
-python --version
-Test Pygame
-python -c "import pygame; print('Pygame OK')"
-Test OpenCV
-python -c "import cv2; print('OpenCV OK')"
-Test MediaPipe
-python -c "import mediapipe; print('MediaPipe OK')"
-Test Everything
-python -c "import pygame, cv2, mediapipe; print('ALL SYSTEMS OK')"
-
-Then start the game:
-
-python main.py
-❗ Troubleshooting
-Camera Is Not Working
-
-Make sure:
-
-Webcam is connected.
-Windows has camera permission.
-No other application is using the camera.
-The correct camera is selected.
-
-The default camera is:
-
-cv2.VideoCapture(0)
-
-If your computer has multiple cameras, the camera index may need to be changed.
-
-ModuleNotFoundError
-
-Example:
-
-ModuleNotFoundError: No module named 'pygame'
-
-Install the missing library:
-
-python -m pip install pygame-ce
-
-For MediaPipe:
-
-python -m pip install mediapipe
-
-For OpenCV:
-
-python -m pip install opencv-contrib-python
-hand_landmarker.task Not Found
-
-If you see an error related to:
-
-hand_landmarker.task
-
-make sure the file is directly inside the project folder:
-
-hand-controlled-car-racing-game/
-│
-├── hand_landmarker.task
-├── main.py
-└── hand_detection.py
-
-Do not put it inside the assets folder unless the code path is changed accordingly.
-
-Pygame Installation Problem
-
-The project uses:
-
-pygame-ce
-
-Install it using:
-
-python -m pip install pygame-ce
-
-The Python code still imports:
-
+```python
 import pygame
-Game Is Running Slowly
+```
 
-Try:
+Do not use `import pygame-ce`; that is invalid Python syntax.
 
-Closing unnecessary applications.
-Improving room lighting.
-Keeping your hand clearly visible.
-Moving the webcam closer.
-Using a stable webcam position.
-📸 Project Preview
+## 🚀 Complete Installation Guide
 
-Add your project screenshot to:
+### Clone Instructions
 
-assets/game-preview.png
+```powershell
+git clone https://github.com/khilarionkar05/hand-controlled-car-racing-game.git
+cd hand-controlled-car-racing-game
+```
 
-Then add:
+### ZIP Download Instructions
 
-![Hand Controlled Car Racing Game](assets/game-preview.png)
-🎥 Project Demo
+Open the repository on GitHub, select **Code**, choose **Download ZIP**, extract it, and open PowerShell in the extracted `hand-controlled-car-racing-game` folder.
 
-A demonstration video can be shared through LinkedIn or another video platform.
+### Python Installation
 
-Example:
+Install Python 3.14.x for Windows and enable the option to add Python to `PATH`. Verify Python and pip:
 
-Demo Video:
-Add your video link here
-🚀 Future Improvements
+```powershell
+python --version
+python -m pip --version
+```
 
-Possible future improvements include:
+### Library Installation
 
-🏁 Multiple racing levels
-📈 Progressive difficulty
-🚗 Multiple cars
-🚧 More obstacle types
-🎵 Sound effects
-🎶 Background music
-🏆 High-score saving
-🔥 Nitro boost gesture
-✋ Advanced gesture recognition
-🤲 Two-hand control
-🎮 Gesture-based restart
-🏆 Online leaderboard
-📊 Game statistics
-🎨 Improved UI
-🌐 Multiplayer mode
-📚 Learning Outcomes
+```powershell
+python -m pip install pygame-ce
+python -m pip install mediapipe
+python -m pip install opencv-contrib-python
+```
 
-This project provided practical experience with:
+### Installation Verification
 
-Python programming
-Computer Vision
-OpenCV
-MediaPipe
-Hand Tracking
-Hand Landmark Detection
-Gesture Recognition
-Webcam Processing
-Real-Time Image Processing
-Pygame
-Game Development
-Collision Detection
-Game Loops
-Interactive UI
-Real-Time Control
-🎯 Project Objective
+```powershell
+python -c "import pygame, cv2, mediapipe; print('ALL SYSTEMS OK')"
+```
 
-The main objective of this project is to demonstrate how Computer Vision can be used as an alternative input method for interactive applications.
+## 🧠 MediaPipe Model Setup
 
-The webcam acts as the input device, MediaPipe processes the hand, and Pygame converts the detected movement and gestures into game actions.
+The required model is `hand_landmarker.task`. If it is missing, download it from the official MediaPipe model URL:
 
-👨‍💻 Author
-Onkar Khilari
+<https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task>
 
-Computer Science / AI-ML enthusiast interested in:
+Place it directly beside `main.py` and `hand_detection.py`. Do not place it inside `assets/`. The program loads the relative path `hand_landmarker.task`.
 
-Artificial Intelligence
-Machine Learning
-Computer Vision
-Python
-Robotics
-Interactive Applications
-Software Development
-🎓 Acknowledgement
+## 📷 Webcam Setup
 
-Special thanks to:
+The project normally opens the default camera with `cv2.VideoCapture(0)`. Allow camera access in Windows. With multiple cameras, change the camera index in `hand_detection.py` from `0` to `1` or `2`.
 
-Sandip University
+## ▶️ How To Run
 
-and
+From the project root:
 
-PHN Technology Pvt Ltd
+```powershell
+python main.py
+```
 
-for the learning environment and opportunities that encourage practical technology projects.
+## 🕹️ How To Play
 
-🔗 Connect
-GitHub
-https://github.com/YOUR-USERNAME
-LinkedIn
-https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME/
+Keep one hand visible to the webcam. Move it horizontally to steer and vertically to adjust speed. Avoid obstacles. Make a fist to pause and show an open hand to resume. After a collision, press `R` to restart or `ESC` to quit.
 
-Replace the above placeholders with your actual profile links.
+## ✋ Hand Tracking System
 
-⭐ Support
+`HandController` captures, mirrors, and converts camera frames before sending them to MediaPipe. It averages the wrist and finger-base landmarks to estimate the palm center, counts fingers, and draws hand connections and landmarks on the preview.
 
-If you like this project, please consider giving the repository a ⭐ Star.
+## ↔️ Steering System
 
-Your feedback, suggestions and contributions are welcome.
+The normalized palm X coordinate is mapped between the road boundaries. The target position is clamped inside the road, then approached gradually using a smoothing factor.
 
-📜 License
+## ⚡ Speed System
 
-This project is created for educational and learning purposes.
+Palm Y values below `0.38` increase speed, values above `0.68` decrease speed, and values between them gradually return speed toward normal. Speed is clamped between the configured minimum and maximum and advances the road and obstacles.
 
-You are welcome to study and modify the project for educational use.
+## ✊ Gesture System
 
+A finger count of one or fewer is treated as a fist and pauses the game. A count of four or more is treated as an open hand and resumes a paused game. A cooldown prevents repeated toggles from one gesture.
 
-### One important change I recommend
+## 🚧 Obstacle System
 
-For someone else to **actually run your project easily**, your GitHub repository should contain these files:
+Obstacles are created at randomly selected positions across three road lanes. Their vertical position increases with speed, and obstacles that leave the screen are removed.
+
+## 💥 Collision Detection
+
+Reduced-size Pygame rectangles are created for the car and obstacles. If any rectangles overlap, the game enters the game-over state and speed stops.
+
+## 🏆 Score System
+
+The score increases during active play in proportion to current speed. It appears as an integer in the score panel and on the game-over screen.
+
+## 🛣️ Game Interface
+
+The interface displays the road, car, obstacles, score, speed, quit hint, live hand-tracking preview, and hand-control panel. Pause and game-over overlays show their corresponding status and instructions.
+
+## 🔄 Complete Project Workflow
+
+1. Initialize Pygame and load the game images.
+2. Initialize the webcam and MediaPipe model.
+3. Capture and process a frame each loop iteration.
+4. Convert hand position and finger count into controls.
+5. Update steering, speed, road, obstacles, and score.
+6. Check the car against active obstacles.
+7. Draw the game, interface, and camera preview.
+8. Display the frame and release the camera on exit.
+
+## 🧪 Testing
+
+Verify the installation command, confirm the model is in the project root, and run `python main.py`. Test steering, acceleration, braking, fist pause, open-hand resume, collision/game over, `R` restart, and `ESC` quit. Test camera index `1` or `2` when multiple webcams are connected.
+
+## 🛠️ Troubleshooting
+
+### Camera not working or permission denied
+
+Check **Settings > Privacy & security > Camera**, close other webcam applications, and retry. The default is `cv2.VideoCapture(0)`.
+
+### Wrong camera or multiple webcam problem
+
+Change the camera index in `hand_detection.py` from `0` to `1` or `2`.
+
+### `ModuleNotFoundError`
+
+Install packages with the same Python interpreter used to run the game:
+
+```powershell
+python -m pip install pygame-ce
+python -m pip install mediapipe
+python -m pip install opencv-contrib-python
+```
+
+### Pygame installation problems
+
+```powershell
+python -m pip install --upgrade pip
+python -m pip install pygame-ce
+```
+
+The package is `pygame-ce`, but the import is `pygame`.
+
+### MediaPipe or OpenCV installation problems
+
+Use Python 3.14.x, upgrade pip, and retry the exact package commands above. Network or package-mirror restrictions may require another network.
+
+### `hand_landmarker.task` not found
+
+Confirm the exact filename and keep it directly beside `main.py`. Run the command from the repository root.
+
+### Game running slowly
+
+Close other camera-heavy applications, improve lighting, keep one hand visible, and reduce other system load. Camera resolution can be reduced in the source if necessary.
+
+### Hand not detected
+
+Keep the full hand in view, improve lighting, remove visual obstructions, and check the live preview for landmarks.
+
+## 🖼️ Project Preview
+
+The repository currently does not include `game-preview.png`. To add a preview later, capture a running-game screenshot, save it as `game-preview.png` in the repository root, and add:
+
+```markdown
+![Game preview](game-preview.png)
+```
+
+## 🎥 Project Demo
+
+No demo video link is currently included. Add a real hosted demo URL here when one is available.
+
+## 🔮 Future Improvements
+
+Possible additions include configurable camera selection, more obstacle types, difficulty levels, sound, persistent high scores, additional gestures, and recorded demos.
+
+## 🎓 Learning Outcomes
+
+This project demonstrates connecting computer vision and hand landmarks to a real-time game loop, smoothing noisy input, recognizing gestures, moving objects, detecting collisions, and rendering an interactive interface.
+
+## 🎯 Project Objective
+
+The objective is to build an accessible racing game that demonstrates practical computer vision, gesture recognition, and interactive Python game development using a webcam as the controller.
+
+## 👤 Author
+
+**Onkar Khilari**
+
+Interests: Artificial Intelligence, Machine Learning, Computer Vision, Python, Robotics, Interactive Applications, and Software Development.
+
+GitHub: <https://github.com/khilarionkar05>
+
+LinkedIn: Add your LinkedIn profile link here
+
+## 🙏 Acknowledgement
+
+This project acknowledges Sandip University and PHN Technology Pvt Ltd.
+
+## 🔗 Connect
+
+- GitHub: <https://github.com/khilarionkar05>
+- LinkedIn: Add your LinkedIn profile link here
+
+## 💬 Support
+
+For setup or gameplay issues, check Troubleshooting first. When reporting a reproducible problem, include the Windows version, Python version, package versions, camera setup, and exact error message.
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+See the [LICENSE](LICENSE) file for the complete license text.
+
+The project is primarily intended for educational and learning purposes.
+
+## ⚡ Quick Start
+
+```powershell
+git clone https://github.com/khilarionkar05/hand-controlled-car-racing-game.git
+cd hand-controlled-car-racing-game
+python -m pip install pygame-ce
+python -m pip install mediapipe
+python -m pip install opencv-contrib-python
+python -c "import pygame, cv2, mediapipe; print('ALL SYSTEMS OK')"
+python main.py
+```
+
+## 📦 Final Project Structure
 
 ```text
 hand-controlled-car-racing-game/
@@ -876,11 +391,12 @@ hand-controlled-car-racing-game/
 ├── assets/
 │   ├── car.png
 │   ├── obstacal.png
-│   ├── road.png
-│   └── game-preview.png
+│   └── road.png
 │
 ├── hand_detection.py
 ├── hand_landmarker.task
 ├── main.py
 ├── README.md
+├── LICENSE
 └── .gitignore
+```
