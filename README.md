@@ -357,7 +357,7 @@ This project acknowledges Sandip University and PHN Technology Pvt Ltd.
 ## 🔗 Connect
 
 - GitHub: <https://github.com/khilarionkar05>
-- LinkedIn: Add your LinkedIn profile link here
+- LinkedIn: <www.linkedin.com/in/onkar-khilari>
 
 ## 💬 Support
 
